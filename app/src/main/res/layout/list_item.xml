@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="6dip">
-
 
     <EditText
         android:id="@+id/code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
+        android:layout_weight="6"
         android:singleLine="true"
         android:hint="@string/new_code"
         android:textSize="20sp"
@@ -20,13 +18,20 @@
         android:id="@+id/quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="@id/code"
-        android:layout_alignParentEnd="true"
-        android:layout_alignWithParentIfMissing="true"
+        android:layout_weight="0.5"
         android:gravity="center_vertical"
         android:hint="@string/quantity"
         android:textSize="20sp"
         android:inputType="number" />
 
-</RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:id="@+id/remove_item"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:src="@drawable/delete_button"/>
+
+
+</LinearLayout>

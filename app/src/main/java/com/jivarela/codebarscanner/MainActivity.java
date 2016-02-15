@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class MainActivity extends Activity {
-    ArrayList<String> listItems = new ArrayList<>();
+    ArrayList<Product> listItems = new ArrayList<>();
     ListAdapter adapter;
 
     @Override
@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
         });
 
         Button export_button = (Button) findViewById(R.id.export_codes_button);
-        scan_button.setOnClickListener(new View.OnClickListener() {
+        export_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 export(v);;
             }
@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 String barcode = intent.getStringExtra("SCAN_RESULT");
-                listItems.add(barcode);
+                listItems.add(new Product(barcode,0));
                 adapter.notifyDataSetChanged();
             } else if (resultCode == RESULT_CANCELED) {
                 // Handle cancel
@@ -73,19 +73,10 @@ public class MainActivity extends Activity {
     }
 
     public void export(View view){
-        String root = Environment.getExternalStorageDirectory().toString();
-        File new_file = new File(root + "/codigos_" + current_date() + ".txt");
+//        String root = Environment.getExternalStorageDirectory().toString();
+//        File new_file = new File(root + "/codigos_" + current_date() + ".txt");
 
 
 
-//        try {
-//            FileOutputStream out = new FileOutputStream(file);
-//
-//            out.flush();
-//            out.close();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 }
