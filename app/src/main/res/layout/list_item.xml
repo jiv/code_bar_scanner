@@ -22,7 +22,7 @@
         android:gravity="center_vertical"
         android:hint="@string/quantity"
         android:textSize="20sp"
-        android:inputType="number" />
+        android:inputType="number"/>
 
     <ImageView
         android:layout_width="wrap_content"

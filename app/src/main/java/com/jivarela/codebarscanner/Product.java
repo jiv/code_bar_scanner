@@ -5,18 +5,26 @@ package com.jivarela.codebarscanner;
  */
 public class Product {
     String code;
-    int quantity;
+    String quantity;
 
-    public Product(String c, int q){
+    public Product(String c){
         this.code = c;
-        this.quantity = q;
+        this.quantity = "";
+    }
+
+    public String getCode() {
+        return code;
     }
 
     public void setCode(String c){
         this.code = c;
     }
 
-    public void setQuantity(int q){
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String q){
         this.quantity = q;
     }
 }

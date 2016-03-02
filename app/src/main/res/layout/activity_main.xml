@@ -9,7 +9,6 @@
         android:id="@+id/list"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:descendantFocusability="beforeDescendants"
-        android:focusable="false" >
+        android:descendantFocusability="beforeDescendants" >
     </ListView>
 </LinearLayout>

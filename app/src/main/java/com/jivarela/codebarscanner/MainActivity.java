@@ -6,28 +6,32 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.ref.PhantomReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class MainActivity extends Activity {
-    ArrayList<Product> listItems = new ArrayList<>();
-    ListAdapter adapter;
+    ArrayList items = new ArrayList<Product>();
+    ListView list;
+    ItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView list = (ListView) findViewById(R.id.list);
-        adapter=new ListAdapter(this, R.layout.list_item, listItems);
+        list = (ListView) findViewById(R.id.list);
+        adapter=new ItemAdapter(this, items);
         list.setAdapter(adapter);
 
         Button scan_button = (Button) findViewById(R.id.scan_button);
@@ -56,7 +60,7 @@ public class MainActivity extends Activity {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 String barcode = intent.getStringExtra("SCAN_RESULT");
-                listItems.add(new Product(barcode,0));
+                items.add(new Product(barcode));
                 adapter.notifyDataSetChanged();
             } else if (resultCode == RESULT_CANCELED) {
                 // Handle cancel
