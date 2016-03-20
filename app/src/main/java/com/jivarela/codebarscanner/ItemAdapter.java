@@ -3,12 +3,13 @@ package com.jivarela.codebarscanner;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -96,6 +97,8 @@ public class ItemAdapter extends BaseAdapter {
             public void onClick(View v) {
                 items.remove(p);
                 notifyDataSetChanged();
+                InputMethodManager imm = (InputMethodManager)(context.getSystemService(Context.INPUT_METHOD_SERVICE));
+                imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
             }
         });
 

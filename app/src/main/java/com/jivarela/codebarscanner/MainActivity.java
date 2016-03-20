@@ -3,20 +3,16 @@ package com.jivarela.codebarscanner;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.lang.ref.PhantomReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,8 +57,6 @@ public class MainActivity extends Activity {
     }
 
     public void readCode(View view){
-//        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-//        startActivityForResult(intent, 0);
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
         integrator.setOrientationLocked(false);
@@ -77,7 +71,7 @@ public class MainActivity extends Activity {
             items.add(new Product(barcode));
             adapter.notifyDataSetChanged();
         } else {
-
+            Log.i("ScanResult", "Empty result");
         }
     }
 
