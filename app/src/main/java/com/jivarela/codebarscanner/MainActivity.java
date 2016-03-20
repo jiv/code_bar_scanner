@@ -10,6 +10,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.zxing.client.android.Intents;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.ref.PhantomReference;
@@ -57,20 +61,21 @@ public class MainActivity extends Activity {
     }
 
     public void readCode(View view){
-        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-        startActivityForResult(intent, 0);
+//        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+//        startActivityForResult(intent, 0);
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
+        integrator.setOrientationLocked(false);
+        integrator.initiateScan();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                String barcode = intent.getStringExtra("SCAN_RESULT");
-                items.add(new Product(barcode));
-                adapter.notifyDataSetChanged();
-            } else if (resultCode == RESULT_CANCELED) {
-                // Handle cancel
-            }
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            String barcode = scanResult.getContents();
+            items.add(new Product(barcode));
+            adapter.notifyDataSetChanged();
         } else {
 
         }
