@@ -5,11 +5,11 @@ package com.jivarela.codebarscanner;
  */
 public class Product {
     String code;
-    String quantity;
+    Integer quantity;
 
     public Product(String c){
         this.code = c;
-        this.quantity = "";
+        this.quantity = 0;
     }
 
     public String getCode() {
@@ -20,11 +20,11 @@ public class Product {
         this.code = c;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String q){
+    public void setQuantity(Integer q){
         this.quantity = q;
     }
 }

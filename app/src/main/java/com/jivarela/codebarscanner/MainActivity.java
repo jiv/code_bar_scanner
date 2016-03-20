@@ -20,21 +20,28 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+
 public class MainActivity extends Activity {
-    ArrayList items = new ArrayList<Product>();
-    ListView list;
+    ArrayList<Product> items = new ArrayList<>();
     ItemAdapter adapter;
+
+    @Bind(R.id.list) ListView list;
+    @Bind(R.id.scan_button) Button scan_button;
+    @Bind(R.id.export_codes_button) Button export_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        list = (ListView) findViewById(R.id.list);
+        ButterKnife.bind(this);
+
         adapter=new ItemAdapter(this, items);
         list.setAdapter(adapter);
 
-        Button scan_button = (Button) findViewById(R.id.scan_button);
         scan_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 readCode(v);
@@ -42,7 +49,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button export_button = (Button) findViewById(R.id.export_codes_button);
         export_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 export(v);;
