@@ -1,15 +1,14 @@
 package com.jivarela.codebarscanner;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,64 +16,43 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItemAdapter extends BaseAdapter {
-    private final Context context;
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
     private final List<Product> items;
 
-    static class ViewHolder {
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.code) public TextView code;
         @Bind(R.id.quantity) public TextView quantity;
         @Bind(R.id.remove_item) public ImageView remove_icon;
 
-        public ViewHolder(View view){
+        public ItemViewHolder(View view){
+            super(view);
             ButterKnife.bind(this, view);
         }
     }
 
-    public ItemAdapter(Context context, List<Product> items) {
-        this.context = context;
+    public ItemAdapter(List<Product> items) {
         this.items = items;
     }
 
     @Override
-    public int getCount() {
-        return this.items.size();
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+
+        ItemViewHolder vh = new ItemViewHolder(v);
+        return vh;
     }
 
     @Override
-    public Object getItem(int position) {
-        return this.items.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        final ViewHolder viewHolder;
-
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_item, parent, false); //TODO: ver si cambiar por (list_item, nul)
-            viewHolder = new ViewHolder(convertView);
-
-            convertView.setTag(viewHolder);
-        }
-        else{
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        final Product p = this.items.get(position);
-        viewHolder.code.setText(p.getCode());
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
+        final Product p = items.get(position);
+        holder.code.setText(p.getCode());
         if (!p.getQuantity().equals(0)){
-            viewHolder.quantity.setText(String.format("%d", p.getQuantity()));
+            holder.quantity.setText(String.format("%d", p.getQuantity()));
         }else{
-            viewHolder.quantity.setText("");
+            holder.quantity.setText("");
         }
 
-        viewHolder.quantity.addTextChangedListener(new TextWatcher() {
+        holder.quantity.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -92,17 +70,27 @@ public class ItemAdapter extends BaseAdapter {
             }
         });
 
-        viewHolder.remove_icon.setOnClickListener(new View.OnClickListener() {
+        holder.remove_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int pos = items.indexOf(p);
                 items.remove(p);
-                notifyDataSetChanged();
-                InputMethodManager imm = (InputMethodManager)(context.getSystemService(Context.INPUT_METHOD_SERVICE));
-                imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                notifyItemRemoved(pos);
+//            InputMethodManager imm = (InputMethodManager) (context.getSystemService(Context.INPUT_METHOD_SERVICE));
+//            imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
             }
         });
+    }
 
-        return convertView;
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return items.size();
     }
 
     private void update_value(Editable s, Product p){

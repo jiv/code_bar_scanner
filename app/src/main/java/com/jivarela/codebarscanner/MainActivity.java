@@ -3,6 +3,8 @@ package com.jivarela.codebarscanner;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,10 +27,11 @@ import butterknife.ButterKnife;
 
 
 public class MainActivity extends Activity {
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Product> items = new ArrayList<>();
-    ItemAdapter adapter;
 
-    @Bind(R.id.list) ListView list;
+    @Bind(R.id.items_list) RecyclerView mRecyclerView;
     @Bind(R.id.scan_button) Button scan_button;
     @Bind(R.id.export_codes_button) Button export_button;
 
@@ -39,8 +42,13 @@ public class MainActivity extends Activity {
 
         ButterKnife.bind(this);
 
-        adapter=new ItemAdapter(this, items);
-        list.setAdapter(adapter);
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new ItemAdapter(items);
+        mRecyclerView.setAdapter(mAdapter);
 
         scan_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -69,7 +77,7 @@ public class MainActivity extends Activity {
         if (scanResult != null) {
             String barcode = scanResult.getContents();
             items.add(new Product(barcode));
-            adapter.notifyDataSetChanged();
+            mAdapter.notifyItemInserted(items.size()-1);
         } else {
             Log.i("ScanResult", "Empty result");
         }
