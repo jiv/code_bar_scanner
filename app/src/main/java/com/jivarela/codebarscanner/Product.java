@@ -4,8 +4,8 @@ package com.jivarela.codebarscanner;
  * Created by nacho on 19/01/16.
  */
 public class Product {
-    String code;
-    Integer quantity;
+    private String code;
+    private Integer quantity;
 
     public Product(String c){
         this.code = c;

@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
     private final List<Product> items;
+    private Context context;
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.code) public TextView code;
@@ -30,16 +31,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         }
     }
 
-    public ItemAdapter(List<Product> items) {
+    public ItemAdapter(Context context, List<Product> items) {
+        this.context = context;
         this.items = items;
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-
-        ItemViewHolder vh = new ItemViewHolder(v);
-        return vh;
+        return new ItemViewHolder(v);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 int pos = items.indexOf(p);
                 items.remove(p);
                 notifyItemRemoved(pos);
-//            InputMethodManager imm = (InputMethodManager) (context.getSystemService(Context.INPUT_METHOD_SERVICE));
-//            imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+            InputMethodManager imm = (InputMethodManager) (context.getSystemService(Context.INPUT_METHOD_SERVICE));
+            imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
             }
         });
     }
