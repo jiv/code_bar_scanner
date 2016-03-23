@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="red">#EF5350</color>
     <color name="colorGrey">#eef9db</color>
+
+    <color name="dialogLogoText">#FFF</color>
 </resources>
