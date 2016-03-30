@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,7 +38,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Product> items = new ArrayList<>();
@@ -64,7 +65,6 @@ public class MainActivity extends Activity {
         scan_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 readCode(v);
-                ;
             }
         });
 
@@ -89,10 +89,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanResult != null) {
+        if (scanResult.getContents() != null) {
+            Log.i("SCAN",scanResult.toString());
             String barcode = scanResult.getContents();
+
             items.add(new Product(barcode));
             mAdapter.notifyItemInserted(items.size()-1);
+
         } else {
             Log.i("ScanResult", "Empty result");
         }
