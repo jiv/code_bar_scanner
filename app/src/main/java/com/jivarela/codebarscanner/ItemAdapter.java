@@ -45,14 +45,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         final Product p = items.get(position);
-        holder.code.setText(p.getCode());
-        if (!p.getQuantity().equals(0)){
-            holder.quantity.setText(String.format("%d", p.getQuantity()));
-        }else{
-            holder.quantity.setText("");
-        }
-
-        holder.quantity.addTextChangedListener(new TextWatcher() {
+        TextWatcher tw = new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -68,7 +61,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             public void afterTextChanged(Editable s) {
                 update_value(s, p);
             }
-        });
+        };
+
+        holder.quantity.removeTextChangedListener(tw);
+        holder.code.setText(p.getCode());
+        if (p.getQuantity() > 0){
+//            holder.quantity.setText(String.format("%d", p.getQuantity()));
+            holder.quantity.setText("1");
+        }else{
+            holder.quantity.setText("2");
+        }
+
+        holder.quantity.addTextChangedListener(tw);
 
         holder.remove_icon.setOnClickListener(new View.OnClickListener() {
             @Override

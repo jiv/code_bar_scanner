@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CodeBarScanner.iml" filepath="$PROJECT_DIR$/CodeBarScanner.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/code_bar_scanner.iml" filepath="$PROJECT_DIR$/code_bar_scanner.iml" />
     </modules>
   </component>
 </project>

@@ -52,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        for (int i =0; i<=15; i++){
+            Product p = new Product(String.valueOf(i));
+            p.setQuantity(i);
+            items.add(p);
+        }
+
         ButterKnife.bind(this);
 
         mRecyclerView.setHasFixedSize(true);
