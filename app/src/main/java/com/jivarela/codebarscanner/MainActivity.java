@@ -43,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        for (int i =0; i<=15; i++){
+            Product p = new Product(String.valueOf(i));
+            p.setQuantity(i);
+            items.add(p);
+        }
+
         ButterKnife.bind(this);
 
         mRecyclerView.setHasFixedSize(true);
@@ -72,20 +78,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(getString(R.string.are_you_sure))
-                .setMessage(R.string.if_you_exit)
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
+        if (!items.isEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(getString(R.string.are_you_sure))
+                    .setMessage(R.string.if_you_exit)
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
 
-                })
-                .setNegativeButton(getString(R.string.no), null)
-                .show();
+                    })
+                    .setNegativeButton(getString(R.string.no), null)
+                    .show();
+        }else{
+            finish();
+        }
     }
 
     public void readCode(View view){
@@ -99,12 +108,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult.getContents() != null) {
-            Log.i("SCAN",scanResult.toString());
+            Log.i("SCAN", scanResult.toString());
             String barcode = scanResult.getContents();
 
             items.add(new Product(barcode));
-            mAdapter.notifyItemInserted(items.size()-1);
-
+            mAdapter.notifyItemInserted(items.size() - 1);
+            mRecyclerView.smoothScrollToPosition(items.size() - 1);
         } else {
             Log.i("ScanResult", "Empty result");
         }

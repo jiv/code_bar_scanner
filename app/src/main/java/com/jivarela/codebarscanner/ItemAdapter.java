@@ -31,6 +31,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             ButterKnife.bind(this, view);
             this.myCustomEditTextListener = myCustomEditTextListener;
             this.quantity.addTextChangedListener(myCustomEditTextListener);
+            this.quantity.setSelectAllOnFocus(true);
         }
     }
 
