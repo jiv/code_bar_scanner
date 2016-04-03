@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Code Bar Scanner</string>
     <string name="action_settings">Settings</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="scan">Scan</string>
     <string name="export">Export</string>
     <string name="cancel">Cancel</string>
@@ -10,4 +12,10 @@
     <string name="separator">Separator</string>
     <string name="company">Company</string>
     <string name="coma">,</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="if_you_exit">If you exit the app, you will lose all codes scanned.</string>
+    <string name="no_codes_scanned">There is no code to export.</string>
+    <string name="company_cant_be_blank">Company can\'t be blank.</string>
+    <string name="file_exported_to">File exported to&#160;</string>
+    <string name="item_without_quantity">There is an item without quantity.</string>
 </resources>

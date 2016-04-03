@@ -1,6 +1,5 @@
 package com.jivarela.codebarscanner;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,28 +10,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +32,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Product> items = new ArrayList<>();
 
     @Bind(R.id.items_list) RecyclerView mRecyclerView;
@@ -56,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setHasFixedSize(true);
 
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new ItemAdapter(this, items);
@@ -73,10 +64,28 @@ public class MainActivity extends AppCompatActivity {
                 if (items_ok()) {
                     export(v);
                 } else {
-                    showToast("There is an item without quantity.");
+                    showToast(getString(R.string.item_without_quantity));
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(getString(R.string.are_you_sure))
+                .setMessage(R.string.if_you_exit)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton(getString(R.string.no), null)
+                .show();
     }
 
     public void readCode(View view){
@@ -109,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void export(View view){
         if (items.isEmpty()){
-            showToast("There is no code to export.");
+            showToast(getString(R.string.no_codes_scanned));
         }else {
             new AlertDialog.Builder(this)
                     .setView(getLayoutInflater().inflate(R.layout.export_dialog, null))
@@ -121,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             if (!company.getText().toString().isEmpty()) {
                                 create_file(separator.getText().toString(), company.getText().toString());
                             } else {
-                                showToast("Company can't be blank.");
+                                showToast(getString(R.string.company_cant_be_blank));
                             }
                         }
                     })
@@ -161,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Toast toast = Toast.makeText(this, "File exported to " + new_file.getAbsolutePath(), Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, getString(R.string.file_exported_to) + new_file.getAbsolutePath(), Toast.LENGTH_LONG);
         toast.show();
     }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Code Bar Scanner</string>
+    <string name="action_settings">Configuración</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="scan">Escanear</string>
+    <string name="export">Exportar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="new_code">Nuevo código</string>
+    <string name="quantity">Num.</string>
+    <string name="remove">Borrar</string>
+    <string name="separator">Separador</string>
+    <string name="company">Compañía</string>
+    <string name="coma">,</string>
+    <string name="are_you_sure">¿Seguro quiere salir?</string>
+    <string name="if_you_exit">Si cierra la app, se perderán todos los códigos escaneados.</string>
+    <string name="no_codes_scanned">No hay ningún código escaneado.</string>
+    <string name="company_cant_be_blank">La compañía no puede ser vacía.</string>
+    <string name="file_exported_to">Archivo exportado a&#160;</string>
+    <string name="item_without_quantity">Hay un código sin cantidad.</string>
+</resources>
