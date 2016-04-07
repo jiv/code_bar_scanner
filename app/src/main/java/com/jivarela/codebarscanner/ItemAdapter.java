@@ -63,6 +63,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 int pos = items.indexOf(p);
                 items.remove(p);
                 notifyItemRemoved(pos);
+                notifyDataSetChanged();
                 InputMethodManager imm = (InputMethodManager) (context.getSystemService(Context.INPUT_METHOD_SERVICE));
                 imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
             }

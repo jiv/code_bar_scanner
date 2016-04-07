@@ -55,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ItemAdapter(this, items);
         mRecyclerView.setAdapter(mAdapter);
 
-//        mRecyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus){
-//                    InputMethodManager imm = (InputMethodManager) (getSystemService(Context.INPUT_METHOD_SERVICE));
-//                    imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
-//                }
-//            }
-//        });
+        mRecyclerView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    InputMethodManager imm = (InputMethodManager) (getSystemService(Context.INPUT_METHOD_SERVICE));
+                    imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+                }
+            }
+        });
 
         scan_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
