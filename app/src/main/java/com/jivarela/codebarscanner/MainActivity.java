@@ -20,9 +20,11 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -171,15 +173,15 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             FileOutputStream f = new FileOutputStream(new_file);
-            PrintWriter pw = new PrintWriter(f);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(f));
 
             for (int i = 0; i < items.size(); i++) {
                 Product p = items.get(i);
-                pw.println(p.getCode() + separator + p.getQuantity());
+                bw.write(p.getCode() + separator + p.getQuantity() + "\r\n");
             }
 
-            pw.flush();
-            pw.close();
+            bw.flush();
+            bw.close();
             f.close();
         } catch ( IOException e ){
             e.printStackTrace();
