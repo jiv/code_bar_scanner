@@ -63,7 +63,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 items.remove(p);
                 notifyItemRemoved(pos);
                 notifyDataSetChanged();
-                InputMethodManager imm = (InputMethodManager) (mContext.getSystemService(Context.INPUT_METHOD_SERVICE));
+                InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
             }
         });
