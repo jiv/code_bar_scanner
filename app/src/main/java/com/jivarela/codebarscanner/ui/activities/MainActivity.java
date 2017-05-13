@@ -1,4 +1,4 @@
-package com.jivarela.codebarscanner;
+package com.jivarela.codebarscanner.ui.activities;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -19,13 +19,16 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.jivarela.codebarscanner.classes.CaptureActivityAnyOrientation;
+import com.jivarela.codebarscanner.adapters.ItemAdapter;
+import com.jivarela.codebarscanner.classes.Product;
+import com.jivarela.codebarscanner.R;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

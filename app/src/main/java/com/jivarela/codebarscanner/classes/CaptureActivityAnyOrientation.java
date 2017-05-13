@@ -1,10 +1,7 @@
-package com.jivarela.codebarscanner;
+package com.jivarela.codebarscanner.classes;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 
-/**
- * Created by nacho on 20/03/16.
- */
 public class CaptureActivityAnyOrientation extends CaptureActivity {
 
 }

@@ -1,11 +1,11 @@
-package com.jivarela.codebarscanner.classes;
+package com.jivarela.codebarscanner.listeners;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import com.jivarela.codebarscanner.Product;
+import com.jivarela.codebarscanner.classes.Product;
 import java.util.ArrayList;
 
-public class MyCustomEditTextListener implements TextWatcher {
+public class EditTextListener implements TextWatcher {
     private int position;
     private ArrayList<Product> items;
 

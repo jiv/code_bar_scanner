@@ -1,8 +1,5 @@
-package com.jivarela.codebarscanner;
+package com.jivarela.codebarscanner.classes;
 
-/**
- * Created by nacho on 19/01/16.
- */
 public class Product {
     private String code;
     private Integer quantity;

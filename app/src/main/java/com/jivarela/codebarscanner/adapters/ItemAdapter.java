@@ -1,4 +1,4 @@
-package com.jivarela.codebarscanner;
+package com.jivarela.codebarscanner.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,47 +8,46 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.jivarela.codebarscanner.classes.MyCustomEditTextListener;
-
+import com.jivarela.codebarscanner.R;
+import com.jivarela.codebarscanner.classes.Product;
+import com.jivarela.codebarscanner.listeners.EditTextListener;
 import java.util.ArrayList;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
     private final ArrayList<Product> items;
-    private Context context;
+    private Context mContext;
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.code) public TextView code;
         @Bind(R.id.quantity) public TextView quantity;
         @Bind(R.id.remove_item) public ImageView remove_icon;
-        public MyCustomEditTextListener myCustomEditTextListener;
+        public EditTextListener editTextListener;
 
-        public ItemViewHolder(View view, MyCustomEditTextListener myCustomEditTextListener){
+        public ItemViewHolder(View view, EditTextListener editTextListener){
             super(view);
             ButterKnife.bind(this, view);
-            this.myCustomEditTextListener = myCustomEditTextListener;
-            this.quantity.addTextChangedListener(myCustomEditTextListener);
+            this.editTextListener = editTextListener;
+            this.quantity.addTextChangedListener(editTextListener);
             this.quantity.setSelectAllOnFocus(true);
         }
     }
 
     public ItemAdapter(Context context, ArrayList<Product> items) {
-        this.context = context;
+        this.mContext = context;
         this.items = items;
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        return new ItemViewHolder(v, new MyCustomEditTextListener());
+        return new ItemViewHolder(v, new EditTextListener());
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        holder.myCustomEditTextListener.updatePosition(items, position);
+        holder.editTextListener.updatePosition(items, position);
         final Product p = items.get(position);
         holder.code.setText(p.getCode());
         if (!p.getQuantity().equals(0)){
@@ -64,7 +63,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 items.remove(p);
                 notifyItemRemoved(pos);
                 notifyDataSetChanged();
-                InputMethodManager imm = (InputMethodManager) (context.getSystemService(Context.INPUT_METHOD_SERVICE));
+                InputMethodManager imm = (InputMethodManager) (mContext.getSystemService(Context.INPUT_METHOD_SERVICE));
                 imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
             }
         });
