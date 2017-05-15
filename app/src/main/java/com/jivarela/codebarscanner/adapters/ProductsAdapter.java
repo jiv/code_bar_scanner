@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ItemViewHolder> {
     private final ArrayList<Product> items;
     private Context mContext;
 
@@ -34,7 +34,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         }
     }
 
-    public ItemAdapter(Context context, ArrayList<Product> items) {
+    public ProductsAdapter(Context context, ArrayList<Product> items) {
         this.mContext = context;
         this.items = items;
     }

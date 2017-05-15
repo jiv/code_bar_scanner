@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Code Bar Scanner</string>
     <string name="action_settings">Configuración</string>
-    <string name="yes">Si</string>
-    <string name="no">No</string>
+    <string name="close_dialog_positive_option">Salir</string>
+    <string name="close_dialog_negative_option">Cancelar</string>
     <string name="scan">Escanear</string>
     <string name="export">Exportar</string>
     <string name="cancel">Cancelar</string>
